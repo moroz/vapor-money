@@ -15,3 +15,5 @@
 //= require react_ujs
 //= require axios
 //= require_tree .
+
+$(function(){ $(document).foundation(); });

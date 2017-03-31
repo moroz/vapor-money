@@ -1,17 +1,3 @@
-function ErrorCallout (props) {
-  let msg = Object.keys(props.errors).map(key => (
-    <li key={key}>
-      { key.capitalize() + ' ' + props.errors[key] }
-    </li>
-  ));
-  return (
-    <div className="callout alert">
-      <h3>Errors:</h3>
-      {msg}
-    </div>
-  );
-}
-
 class Records extends React.Component {
   constructor (props) {
     super (props);
@@ -67,12 +53,26 @@ class Records extends React.Component {
   }
 
   getBalance () {
-    return this.state.records.reduce((acc, record) => (
-      acc + Number(record.amount)), 0);
+    return sum(this.state.records);
+  }
+
+  getCredits () {
+    var credits = this.state.records.filter(val => (val.amount >= 0));
+    return sum(credits);
+  }
+
+  getDebits () {
+    var debits = this.state.records.filter(val => (val.amount < 0));
+    return sum(debits);
   }
 
   render () {
     return <div className="records">
+      <div className="row">
+        <AmountBox text="Balance" amount={this.getBalance()} />
+        <AmountBox text="Credits" amount={this.getCredits()} />
+        <AmountBox text="Debits" amount={this.getDebits()} />
+      </div>
       <h2 className="description">
         Records
       </h2>

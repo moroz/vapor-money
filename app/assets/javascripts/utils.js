@@ -2,11 +2,21 @@ function amountFormat(amount, currency) {
   if (typeof currency === 'undefined') {
     currency = "$";
   }
-  return currency + Number(amount).toFixed(2);
+  amount = Number(amount);
+  if (amount < 0) {
+    return "-" + currency + (-amount).toFixed(2);
+  } else {
+    return currency + amount.toFixed(2);
+  }
 }
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+function sum (array) {
+  return array.reduce((acc, record) => (
+    acc + Number(record.amount)), 0);
 }
 
 var CSRF = {

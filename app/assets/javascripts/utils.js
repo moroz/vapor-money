@@ -5,6 +5,10 @@ function amountFormat(amount, currency) {
   return currency + Number(amount).toFixed(2);
 }
 
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 var CSRF = {
   // https://github.com/shakacode/react_on_rails/issues/16
   getCSRFToken: function() {

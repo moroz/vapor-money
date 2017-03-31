@@ -1,7 +1,13 @@
 function ErrorCallout (props) {
+  let msg = Object.keys(props.errors).map(key => (
+    <li key={key}>
+      { key.capitalize() + ' ' + props.errors[key] }
+    </li>
+  ));
   return (
     <div className="callout alert">
-      {String(props.errors)}
+      <h3>Errors:</h3>
+      {msg}
     </div>
   );
 }
@@ -47,9 +53,9 @@ class Records extends React.Component {
       headers: CSRF.getHeaders()
     }).then(res => {
       this.addNewRecord(res.data);
-    }).catch(err => {
+    }).catch(res => {
       this.setState({
-        errors: err
+        errors: res.response.data
       });
     });
   }

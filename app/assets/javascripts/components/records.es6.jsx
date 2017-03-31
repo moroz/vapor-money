@@ -15,8 +15,16 @@ function ErrorCallout (props) {
 class Records extends React.Component {
   constructor (props) {
     super (props);
-    this.state = {
-      records: this.props.data,
+    this.state = this.initialState();
+    this.state.records = this.props.data;
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.addNewRecord = this.addNewRecord.bind(this);
+    this.getBalance = this.getBalance.bind(this);
+  }
+
+  initialState () {
+    return {
       new_record: {
         description: '',
         date: '',
@@ -24,9 +32,6 @@ class Records extends React.Component {
       },
       errors: null
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.addNewRecord = this.addNewRecord.bind(this);
   }
 
   handleChange (obj) {
@@ -53,11 +58,17 @@ class Records extends React.Component {
       headers: CSRF.getHeaders()
     }).then(res => {
       this.addNewRecord(res.data);
+      this.setState(this.initialState());
     }).catch(res => {
       this.setState({
         errors: res.response.data
       });
     });
+  }
+
+  getBalance () {
+    return this.state.records.reduce((acc, record) => (
+      acc + Number(record.amount)), 0);
   }
 
   render () {
@@ -71,7 +82,7 @@ class Records extends React.Component {
         new_record={this.state.new_record}
         handleFormSubmit={this.handleFormSubmit}
       />
-      <table>
+      <table className="unstriped">
         <thead>
           <tr>
             <td>Date</td>
@@ -84,11 +95,17 @@ class Records extends React.Component {
             <Record record={rec} key={rec.id} />
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="2">Balance:</td>
+            <td>{amountFormat(this.getBalance())}</td>
+          </tr>
+        </tfoot>
       </table>
     </div>;
   }
 }
 
 Records.defaultProps = {
-  records: []
+  data: []
 }

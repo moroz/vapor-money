@@ -14,6 +14,12 @@ class RecordForm extends React.Component {
   constructor (props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.valid = this.valid.bind(this);
+  }
+
+  valid () {
+    let r = this.props.new_record
+    return r.date && r.description && r.amount;
   }
 
   onChange (e) {
@@ -51,6 +57,7 @@ class RecordForm extends React.Component {
               type="submit"
               value="Create record"
               className="button"
+              disabled={!this.valid()}
             />
           </div>
         </div>

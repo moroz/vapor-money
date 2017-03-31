@@ -40,11 +40,11 @@ class RecordForm extends React.Component {
             onChange={this.onChange}
             placeholder="Amount"
           />
-          <div className="small-3 columns">
+          <div className="large-3 columns">
             <input
               type="submit"
               value="Create record"
-              className="button"
+              className="button expanded"
               disabled={!this.valid()}
             />
           </div>

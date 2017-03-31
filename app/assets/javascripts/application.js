@@ -14,6 +14,7 @@
 //= require components
 //= require react_ujs
 //= require axios
+//= require moment
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+//$(function(){ $(document).foundation(); });

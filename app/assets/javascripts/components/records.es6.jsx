@@ -11,7 +11,15 @@ class Records extends React.Component {
       <h2 className="title">
         Records
       </h2>
+      <RecordForm />
       <table>
+        <thead>
+          <tr>
+            <td>Date</td>
+            <td>Title</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
         <tbody>
           {this.state.records.map(rec => (
             <Record record={rec} key={rec.id} />

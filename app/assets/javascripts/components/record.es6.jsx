@@ -3,7 +3,7 @@ function Record (props) {
     <tr>
       <td>{props.record.date}</td>
       <td>{props.record.description}</td>
-      <td>{props.record.amount}</td>
+      <td>{amountFormat(props.record.amount)}</td>
     </tr>
   );
 }

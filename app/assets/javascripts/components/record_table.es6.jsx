@@ -16,6 +16,8 @@ class RecordTable extends React.Component {
               record={rec}
               key={rec.id}
               handleDeleteRecord={this.props.handleDeleteRecord}
+              updateRecord={this.props.updateRecord}
+              handleError={this.props.handleError}
             />
           ))}
         </tbody>

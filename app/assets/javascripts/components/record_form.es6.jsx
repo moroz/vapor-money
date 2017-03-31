@@ -1,23 +1,4 @@
 class RecordForm extends React.Component {
-  constructor (props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.valid = this.valid.bind(this);
-  }
-
-  valid () {
-    let r = this.props.new_record
-    return r.date && r.description && r.amount;
-  }
-
-  onChange (e) {
-    var obj = this.props.new_record;
-    obj[e.target.name] = e.target.value;
-    this.props.handleChange({
-      new_record: obj
-    });
-  }
-
   render () {
     return (
       <form onSubmit={this.props.handleFormSubmit} >
@@ -25,19 +6,19 @@ class RecordForm extends React.Component {
           <InputField
             name="date"
             value={this.props.new_record.date}
-            onChange={this.onChange}
+            onChange={this.props.onChange}
             placeholder="Date"
           />
           <InputField
             name="description"
             value={this.props.new_record.description}
-            onChange={this.onChange}
+            onChange={this.props.onChange}
             placeholder="Description"
           />
           <InputField
             name="amount"
             value={this.props.new_record.amount}
-            onChange={this.onChange}
+            onChange={this.props.onChange}
             placeholder="Amount"
           />
           <div className="large-3 columns">
@@ -45,7 +26,7 @@ class RecordForm extends React.Component {
               type="submit"
               value="Create record"
               className="button expanded"
-              disabled={!this.valid()}
+              disabled={this.props.disabled}
             />
           </div>
         </div>
@@ -56,6 +37,7 @@ class RecordForm extends React.Component {
 
 let Types = React.PropTypes;
 RecordForm.propTypes = {
-  handleChange: Types.func.isRequired,
-  new_record: Types.object.isRequired
+  onChange: Types.func.isRequired,
+  new_record: Types.object.isRequired,
+  handleFormSubmit: Types.func.isRequired
 }

@@ -34,9 +34,11 @@ class Records extends React.Component {
   }
 
   handleDeleteRecord (record) {
-    var records = this.state.records.slice();
-    var index = records.indexOf(record);
-    records.splice(index, 1);
+    var index = this.state.records.indexOf(record);
+    var records = React.addons.update(
+      this.state.records,
+      { $splice: [[index, 1]] }
+    );
     this.setState({
       records: records
     });
@@ -102,7 +104,7 @@ class Records extends React.Component {
         Records
       </h2>
       {this.state.errors ? <ErrorCallout errors={this.state.errors} /> : '' }
-      <RecordForm
+      <RecordFormContainer
         handleChange={this.handleChange}
         new_record={this.state.new_record}
         handleFormSubmit={this.handleFormSubmit}

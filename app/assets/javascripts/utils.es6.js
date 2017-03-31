@@ -14,9 +14,10 @@ String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-function sum (array) {
-  return array.reduce((acc, record) => (
-    acc + Number(record.amount)), 0);
+function sum (arr) {
+  return arr.reduce(function (acc, record) {
+    return acc + Number(record.amount)
+  }, 0);
 }
 
 var CSRF = {

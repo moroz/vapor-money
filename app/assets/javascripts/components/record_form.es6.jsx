@@ -13,40 +13,37 @@ function InputField (props) {
 class RecordForm extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      title: '',
-      date: '',
-      amount: ''
-    }
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  handleChange (e) {
-    var obj = {};
+  onChange (e) {
+    var obj = this.props.new_record;
     obj[e.target.name] = e.target.value;
-    this.setState(obj);
+    this.props.handleChange({
+      new_record: obj
+    });
   }
 
   render () {
     return (
-      <form>
+      <form onSubmit={this.props.handleFormSubmit} >
         <div className="row">
           <InputField
             name="date"
-            value={this.state.date}
-            onChange={this.handleChange}
+            value={this.props.new_record.date}
+            onChange={this.onChange}
             placeholder="Date"
           />
           <InputField
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-            placeholder="Title"
+            name="description"
+            value={this.props.new_record.description}
+            onChange={this.onChange}
+            placeholder="Description"
           />
           <InputField
             name="amount"
-            value={this.state.amount}
-            onChange={this.handleChange}
+            value={this.props.new_record.amount}
+            onChange={this.onChange}
             placeholder="Amount"
           />
           <div className="small-3 columns">
@@ -60,4 +57,10 @@ class RecordForm extends React.Component {
       </form>
     );
   }
+}
+
+let Types = React.PropTypes;
+RecordForm.propTypes = {
+  handleChange: Types.func.isRequired,
+  new_record: Types.object.isRequired
 }

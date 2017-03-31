@@ -7,7 +7,7 @@ class RecordForm extends React.Component {
             name="date"
             value={this.props.new_record.date}
             onChange={this.props.onChange}
-            placeholder="Date"
+            placeholder="Date in YYYY-MM-DD format"
           />
           <InputField
             name="description"

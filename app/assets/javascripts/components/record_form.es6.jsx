@@ -1,15 +1,3 @@
-function InputField (props) {
-  return (
-    <div className="small-3 columns">
-      <input
-        type="text"
-        name={props.name}
-        {...props}
-      />
-    </div>
-  );
-}
-
 class RecordForm extends React.Component {
   constructor (props) {
     super(props);

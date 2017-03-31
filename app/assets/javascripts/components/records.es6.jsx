@@ -5,8 +5,8 @@ class Records extends React.Component {
     this.state.records = this.props.data;
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.addNewRecord = this.addNewRecord.bind(this);
-    this.getBalance = this.getBalance.bind(this);
+    this.handleDeleteRecord = this.handleDeleteRecord.bind(this);
+    //this.addNewRecord = this.addNewRecord.bind(this);
   }
 
   initialState () {
@@ -33,6 +33,21 @@ class Records extends React.Component {
     });
   }
 
+  handleDeleteRecord (record) {
+    var records = this.state.records.slice();
+    var index = records.indexOf(record);
+    records.splice(index, 1);
+    this.setState({
+      records: records
+    });
+  }
+
+  handleError (err) {
+    this.setState({
+      errors: err
+    });
+  }
+
   handleFormSubmit (e) {
     e.preventDefault();
     axios.request({
@@ -46,9 +61,7 @@ class Records extends React.Component {
       this.addNewRecord(res.data);
       this.setState(this.initialState());
     }).catch(res => {
-      this.setState({
-        errors: res.response.data
-      });
+      this.handleError(res.response.data);
     });
   }
 
@@ -69,9 +82,21 @@ class Records extends React.Component {
   render () {
     return <div className="records">
       <div className="row">
-        <AmountBox text="Balance" amount={this.getBalance()} />
-        <AmountBox text="Credits" amount={this.getCredits()} />
-        <AmountBox text="Debits" amount={this.getDebits()} />
+        <AmountBox
+          text="Balance"
+          amount={this.getBalance()}
+          className="primary"
+        />
+        <AmountBox
+          text="Credits"
+          amount={this.getCredits()}
+          className="success"
+        />
+        <AmountBox
+          text="Debits"
+          amount={this.getDebits()}
+          className="alert"
+        />
       </div>
       <h2 className="description">
         Records
@@ -82,26 +107,11 @@ class Records extends React.Component {
         new_record={this.state.new_record}
         handleFormSubmit={this.handleFormSubmit}
       />
-      <table className="unstriped">
-        <thead>
-          <tr>
-            <td>Date</td>
-            <td>Description</td>
-            <td>Amount</td>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.records.map(rec => (
-            <Record record={rec} key={rec.id} />
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan="2">Balance:</td>
-            <td>{amountFormat(this.getBalance())}</td>
-          </tr>
-        </tfoot>
-      </table>
+      <RecordTable
+        records={this.state.records}
+        balance={this.getBalance()}
+        handleDeleteRecord={this.handleDeleteRecord}
+      />
     </div>;
   }
 }

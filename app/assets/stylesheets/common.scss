@@ -2,3 +2,14 @@ body {
   padding-top: 25px;
 }
 
+.record__amount, .record__date {
+  width: 20%;
+}
+
+tr {
+  width: 100%;
+}
+
+.record__description {
+  width: 60%;
+}

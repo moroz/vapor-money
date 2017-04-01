@@ -1,13 +1,12 @@
 class RecordTable extends React.Component {
   render () {
     return (
-      <table className="unstriped">
+      <table className="unstriped hover">
         <thead>
           <tr>
-            <td>Date</td>
-            <td>Description</td>
-            <td>Amount</td>
-            <td>Actions</td>
+            <td className="record__date">Date</td>
+            <td className="record__description">Description</td>
+            <td className="record__amount">Amount</td>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +24,6 @@ class RecordTable extends React.Component {
           <tr>
             <td colSpan="2">Balance:</td>
             <td>{amountFormat(this.props.balance)}</td>
-            <td />
           </tr>
         </tfoot>
       </table>

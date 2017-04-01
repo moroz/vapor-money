@@ -4,8 +4,10 @@ class Record extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.toggleDetails = this.toggleDetails.bind(this);
     this.state = {
-      isEdited: false
+      isEdited: false,
+      details: false
     };
   }
 
@@ -23,6 +25,12 @@ class Record extends React.Component {
   toggleEdit () {
     this.setState({
       isEdited: !this.state.isEdited
+    });
+  }
+
+  toggleDetails () {
+    this.setState({
+      details: !this.state.details
     });
   }
 
@@ -62,15 +70,21 @@ class Record extends React.Component {
         />
       );
     }
+    let actions;
+    if (this.state.details) {
+      return (
+        <RecordDetails
+          handleDelete={this.handleDelete}
+          toggleEdit={this.toggleEdit}
+          record={record}
+        />
+      );
+    }
     return (
       <tr>
-        <td>{record.date}</td>
-        <td>{record.description}</td>
-        <td>{amountFormat(record.amount)}</td>
-        <td>
-          <button className="button alert" onClick={this.handleDelete} > Delete </button>
-          <button className="button primary" onClick={this.toggleEdit} > Edit </button>
-        </td>
+        <td onClick={this.toggleDetails} className='record__date'>{record.date}</td>
+        <td className='record__description'>{record.description}</td>
+        <td className='record__amount'>{amountFormat(record.amount)}</td>
       </tr>
     );
   }

@@ -85,12 +85,12 @@ class Records extends React.Component {
   }
 
   getCredits () {
-    var credits = this.state.records.filter(val => (val.amount >= 0));
+    var credits = this.state.records.filter(val => (val.data.attributes.amount >= 0));
     return sum(credits);
   }
 
   getDebits () {
-    var debits = this.state.records.filter(val => (val.amount < 0));
+    var debits = this.state.records.filter(val => (val.data.attributes.amount < 0));
     return sum(debits);
   }
 

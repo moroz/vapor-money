@@ -7,7 +7,7 @@ class Record extends React.Component {
     this.toggleDetails = this.toggleDetails.bind(this);
     this.state = {
       isEdited: false,
-      details: false
+      showDetails: false
     };
   }
 
@@ -30,7 +30,7 @@ class Record extends React.Component {
 
   toggleDetails () {
     this.setState({
-      details: !this.state.details
+      showDetails: !this.state.showDetails
     });
   }
 
@@ -71,7 +71,7 @@ class Record extends React.Component {
       );
     }
     let actions;
-    if (this.state.details) {
+    if (this.state.showDetails) {
       return (
         <RecordDetails
           handleDelete={this.handleDelete}
@@ -81,7 +81,7 @@ class Record extends React.Component {
       );
     }
     return (
-      <tr>
+      <tr className='record'>
         <td onClick={this.toggleDetails} className='record__date'>{record.date}</td>
         <td className='record__description'>{record.description}</td>
         <td className='record__amount'>{amountFormat(record.amount)}</td>

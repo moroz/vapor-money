@@ -13,3 +13,13 @@ tr {
 .record__description {
   width: 60%;
 }
+
+.record:before {
+  content: "▶";
+  display: 'inline-block';
+  width: 1em;
+}
+
+.record--is-open:before {
+  content: "▼";
+}

@@ -14,7 +14,7 @@ class RecordTable extends React.Component {
           {this.props.records.map(rec => (
             <Record
               record={rec}
-              key={rec.id}
+              key={rec.data.id}
               handleDeleteRecord={this.props.handleDeleteRecord}
               updateRecord={this.props.updateRecord}
               handleError={this.props.handleError}

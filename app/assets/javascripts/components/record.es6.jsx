@@ -13,7 +13,7 @@ class Record extends React.Component {
     e.preventDefault();
     axios.request({
       method: 'delete',
-      url: '/records/' + this.props.record.id,
+      url: '/records/' + this.props.record.data.id,
       headers: CSRF.getHeaders()
     }).then(() => {
       this.props.handleDeleteRecord(this)
@@ -50,10 +50,12 @@ class Record extends React.Component {
   }
 
   render () {
+    var record = this.props.record.data.attributes;
+    record['id'] = this.props.record.data.id;
     if (this.state.isEdited) {
       return (
         <EditRecordForm
-          record={this.props.record}
+          record={record}
           handleEdit={this.handleEdit}
           toggleEdit={this.toggleEdit}
           ref="edit_form"
@@ -62,9 +64,9 @@ class Record extends React.Component {
     }
     return (
       <tr>
-        <td>{this.props.record.date}</td>
-        <td>{this.props.record.description}</td>
-        <td>{amountFormat(this.props.record.amount)}</td>
+        <td>{record.date}</td>
+        <td>{record.description}</td>
+        <td>{amountFormat(record.amount)}</td>
         <td>
           <button className="button alert" onClick={this.handleDelete} > Delete </button>
           <button className="button primary" onClick={this.toggleEdit} > Edit </button>

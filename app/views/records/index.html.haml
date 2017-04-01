@@ -1,1 +1,2 @@
-= react_component 'Records', { data: @records }
+- records = @records.map { |r| r.to_json }
+= react_component 'Records', { data: records }

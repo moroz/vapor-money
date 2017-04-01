@@ -16,7 +16,7 @@ String.prototype.capitalize = function () {
 
 function sum (arr) {
   return arr.reduce(function (acc, record) {
-    return acc + Number(record.amount)
+    return acc + Number(record.data.attributes.amount)
   }, 0);
 }
 
@@ -36,5 +36,15 @@ var CSRF = {
     return {
       'X-CSRF-Token': this.getCSRFToken()
     };
+  }
+}
+
+function deserialize_record (json) {
+  var arr = json.data.attributes;
+  return {
+    id: json.data.id,
+    description: arr.description,
+    date: arr.date,
+    amount: arr.amount
   }
 }

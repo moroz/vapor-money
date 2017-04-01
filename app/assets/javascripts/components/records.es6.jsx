@@ -27,9 +27,10 @@ class Records extends React.Component {
   }
 
   addNewRecord (record) {
+    var newRecord = deserialize_record(record);
     var records = React.addons.update(
       this.state.records,
-      { $push: [record] });
+      { $push: [newRecord] });
     this.setState({
       records: records
     });

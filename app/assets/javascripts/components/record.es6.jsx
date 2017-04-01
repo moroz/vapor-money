@@ -39,7 +39,7 @@ class Record extends React.Component {
       data: {
         record: data
       },
-      url: '/records/' + this.props.record.id,
+      url: '/records/' + this.props.record.data.id,
       headers: CSRF.getHeaders()
     }).then((res) => {
       this.toggleEdit();

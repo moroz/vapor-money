@@ -70,16 +70,6 @@ class Record extends React.Component {
         />
       );
     }
-    let actions;
-    if (this.state.showDetails) {
-      return (
-        <RecordDetails
-          handleDelete={this.handleDelete}
-          toggleEdit={this.toggleEdit}
-          record={record}
-        />
-      );
-    }
     return (
       <tr className='record'>
         <td onClick={this.toggleDetails} className='record__date'>{record.date}</td>
